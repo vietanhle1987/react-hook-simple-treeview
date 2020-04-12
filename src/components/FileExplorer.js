@@ -1,13 +1,32 @@
-import React from "react";
+import React, { Component } from "react";
+import styled from "styled-components";
 import Tree from "./Tree";
-import TreeNode from "./TreeNode";
+
+const StyledFileExplorer = styled.div`
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+`;
+
+const TreeWrapper = styled.div`
+  width: 250px;
+`;
+
 const FileExplorer = () => {
+
+  onSelect = (file) => setState({ selectedFile: file });
+  const { selectedFile } = state;
+
   return (
-    <div>
-      <h1> this is file explorer page</h1>
-      <Tree />
-      <TreeNode />
-    </div>
+    <StyledFileExplorer>
+      <TreeWrapper>
+        <Tree onSelect={onSelect} />
+      </TreeWrapper>
+      <div>
+        {selectedFile && selectedFile.type === "file" && selectedFile.content}
+      </div>
+    </StyledFileExplorer>
   );
 };
 
