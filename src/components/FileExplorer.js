@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Tree from "./Tree";
 
@@ -14,18 +14,17 @@ const TreeWrapper = styled.div`
 `;
 
 const FileExplorer = () => {
-
-  onSelect = (file) => setState({ selectedFile: file });
-  const { selectedFile } = state;
+  const [data, setData] = useState("");
+  const onSelect = (file) => {
+    return setData(file);
+  };
 
   return (
     <StyledFileExplorer>
       <TreeWrapper>
         <Tree onSelect={onSelect} />
       </TreeWrapper>
-      <div>
-        {selectedFile && selectedFile.type === "file" && selectedFile.content}
-      </div>
+      <div>{data && data.type === "file" && data.content}</div>
     </StyledFileExplorer>
   );
 };

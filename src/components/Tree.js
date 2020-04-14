@@ -8,13 +8,13 @@ const database = {
     type: "folder",
     isRoot: true,
     children: ["/root/david", "/root/jslancer"],
-    isOpen: false
+    isOpen: false,
   },
   "/root/david": {
     path: "/root/david",
     type: "folder",
     children: ["/root/david/readme.md"],
-    isOpen: false
+    isOpen: false,
   },
   "/root/david/readme.md": {
     path: "/root/david/readme.md",
@@ -25,25 +25,25 @@ const database = {
     path: "/root/jslancer",
     type: "folder",
     children: ["/root/jslancer/projects", "/root/jslancer/vblogs"],
-    isOpen: false
+    isOpen: false,
   },
   "/root/jslancer/projects": {
     path: "/root/jslancer/projects",
     type: "folder",
     children: ["/root/jslancer/projects/treeview"],
-    isOpen: false
+    isOpen: false,
   },
   "/root/jslancer/projects/treeview": {
     path: "/root/jslancer/projects/treeview",
     type: "folder",
     children: [],
-    isOpen: false
+    isOpen: false,
   },
   "/root/jslancer/vblogs": {
     path: "/root/jslancer/vblogs",
     type: "folder",
     children: [],
-    isOpen: false
+    isOpen: false,
   },
 };
 const Tree = () => {
@@ -57,31 +57,23 @@ const Tree = () => {
     if (!node.children) return [];
     return node.children.map((path) => nodes[path]);
   };
-  const onToggle = (node) =>{
+  const onToggle = (node) => {
     return values(nodes).map((node) => node.isOpen !== node.isOpen);
-  }
-  // const roodNodes = getRootNodes(nodes);
+  };
 
-  // const onNodeSelect = node => {
-  //   const { onSelect } = this.props;
-  //   onSelect(node);
-  // }
-  const rootNodes = getRootNodes(nodes)
-  console.log("OUTPUT: Tree -> rootNodes", rootNodes);
-  console.log("OUTPUT: Tree -> getRootNodes(nodes)", getRootNodes(nodes));
+  const rootNodes = getRootNodes(nodes);
   return (
     <>
-      { rootNodes.map(node => (
-          <TreeNode 
-            node={node}
-            getChildNodes={getChildNodes()}
-            onToggle={onToggle()}
-            // onNodeSelect={onNodeSelect()}
-          />
-        ))}
+      {rootNodes.map((node) => (
+        <TreeNode
+          node={node}
+          getChildNodes={getChildNodes(node)}
+          onToggle={onToggle()}
+          // onNodeSelect={onNodeSelect()}
+        />
+      ))}
     </>
-  )
-  
+  );
 };
 
 export default Tree;

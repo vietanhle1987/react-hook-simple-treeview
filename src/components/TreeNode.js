@@ -36,32 +36,30 @@ const getNodeLabel = (node) => last(node.path.split("/"));
 const TreeNode = (props) => {
   const { node, getChildNodes, level, onToggle, onNodeSelect } = props;
 
-  return( 
+  return (
     <>
-    <StyledTreeNode level={level} type={node.type}>
-      <NodeIcon onclick ={() => onToggle(node)}>
-        {node.type ==='folder' && (node.isOpen ? <FaChevronDown /> : <FaChevronRight/>)}
-      </NodeIcon>
+      <StyledTreeNode level={level} type={node.type}>
+        <NodeIcon onclick={() => onToggle(node)}>
+          {node.type === "folder" &&
+            (node.isOpen ? <FaChevronDown /> : <FaChevronRight />)}
+        </NodeIcon>
 
-      <nodeIcon marginRight={10}>
-        {node.type ==='file' && <FaFile/>}
-        {node.type === 'folder' && node.isOpen === true && <FaFolderOpen />}
-        {node.type === 'folder' && !node.isOpen && <FaFolder />}
-      </nodeIcon>
+        <nodeIcon marginRight={10}>
+          {node.type === "file" && <FaFile />}
+          {node.type === "folder" && node.isOpen === true && <FaFolderOpen />}
+          {node.type === "folder" && !node.isOpen && <FaFolder />}
+        </nodeIcon>
 
-      <span role="button" onClick={() => onNodeSelect(node)}>
-        {getNodeLabel(node)}
-      </span>
-    </StyledTreeNode>
-    { node.isOpen && getChildNodes(node).map(childNode => (
-      <TreeNode
-      {...props}
-      node={childNode}
-      level={level+1}
-      />
-    ))}
+        <span role="button" onClick={() => onNodeSelect(node)}>
+          {getNodeLabel(node)}
+        </span>
+      </StyledTreeNode>
+      {node.isOpen &&
+        getChildNodes(node).map((childNode) => (
+          <TreeNode {...props} node={childNode} level={level + 1} />
+        ))}
     </>
-  )
+  );
 };
 
 export default TreeNode;
